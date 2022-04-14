@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import Inputs from "./Inputs";
-import { ControlOutlined, CopyOutlined } from "@ant-design/icons";
+import { CopyOutlined } from "@ant-design/icons";
 import Recentcolor from "./Recentcolor";
 import { message } from "antd";
 import Colorcode from "./Colorcode";
@@ -15,6 +19,7 @@ const getrecent = () => {
 function App() {
   const colors = ["red", "green", "blue"];
   const [color, setColor] = useState({
+
     red: 222,
     green: 215,
     blue: 34,
@@ -36,11 +41,11 @@ function App() {
   // converting color
   const convert = (clr) => {
     let hex = clr.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length === 1 ? "0" + hex : hex;
   };
-  const rgb2hex = () => {
+  const rgb2hex = useCallback(() => {
     return "#" + convert(red) + convert(green) + convert(blue);
-  };
+  }, [red, green, blue]);
   useEffect(() => {
     setHexcode(rgb2hex());
     setrgbCode(`rgb(${red},${green},${blue})`);
@@ -49,10 +54,7 @@ function App() {
     } else {
       setColor4copy(hexCode);
     }
-  });
-  useLayoutEffect(() => {
-    setHexcode(rgb2hex());
-  }, []);
+  }, [rgb2hex, red, green, blue, isRGB, rgbCode, hexCode]);
   function ChangeColor(c, e) {
     setColor((previousState) => {
       return { ...previousState, [c]: e };
@@ -89,12 +91,7 @@ function App() {
     }
     setRecentColor(history.slice(0, 8));
     localStorage.setItem("color", JSON.stringify(history.slice(0, 8)));
-    let recent = localStorage.getItem("color");
-  };
-
-  const letsCopy = () => {
-    navigator.clipboard.writeText(color4copy);
-    message.open({ content: `color ${color4copy} copied` }, 2);
+    // let recent = localStorage.getItem("color");
   };
   return (
     <>

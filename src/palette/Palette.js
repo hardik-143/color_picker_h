@@ -1,4 +1,4 @@
-import React from "react";
+import {React, memo} from "react";
 import Values from "values.js";
 import PaletteColor from "./PaletteColor";
 
@@ -29,4 +29,4 @@ function Palette({  rgbCode, isrgb }) {
   );
 }
 
-export default Palette;
+export default memo(Palette);
