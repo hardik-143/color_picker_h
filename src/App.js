@@ -15,9 +15,9 @@ const getrecent = () => {
 function App() {
   const colors = ["red", "green", "blue"];
   const [color, setColor] = useState({
-    red: 22,
-    green: 248,
-    blue: 156,
+    red: 222,
+    green: 215,
+    blue: 34,
   });
   const { red, green, blue } = color;
   const [rgbCode, setrgbCode] = useState(`rgb(${red},${green},${blue})`);
