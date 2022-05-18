@@ -1,25 +1,15 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Inputs from "./Inputs";
 import { CopyOutlined } from "@ant-design/icons";
 import Recentcolor from "./Recentcolor";
 import { message } from "antd";
 import Colorcode from "./Colorcode";
 import Palette from "./palette/Palette";
-const getrecent = () => {
-  let recent = localStorage.getItem("color");
-  if (recent) {
-    return JSON.parse(recent);
-  }
-  return [];
-};
+import { randomColorValue, getrecent, convert } from "./functions";
+
 function App() {
   const colors = ["red", "green", "blue"];
   const [color, setColor] = useState({
-
     red: 222,
     green: 215,
     blue: 34,
@@ -29,20 +19,17 @@ function App() {
   const [hexCode, setHexcode] = useState("");
   // destructing color object
   const [history, setHistory] = useState(getrecent());
+  // if there'll be recent colors in localstorage then show recent section will be visible 
   const [showRecent, setshowrecent] = useState(() => {
     if (history.length === 0) {
       return false;
     }
     return true;
   });
-  const [recentColor, setRecentColor] = useState(history.slice(0, 8));
+  // const [recentColor, setRecentColor] = useState(history.slice(0, 8));
   const [isRGB, setisRGB] = useState(true);
   const [color4copy, setColor4copy] = useState("");
   // converting color
-  const convert = (clr) => {
-    let hex = clr.toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
-  };
   const rgb2hex = useCallback(() => {
     return "#" + convert(red) + convert(green) + convert(blue);
   }, [red, green, blue]);
@@ -72,12 +59,11 @@ function App() {
   const clearRecent = () => {
     localStorage.removeItem("color");
     setHistory([]);
-    setRecentColor([]);
+    // setRecentColor([]);
     setshowrecent(false);
   };
-  const randomColorValue = () => {
-    return Math.floor(Math.random() * 256);
-  };
+
+  // generating random color and adding in recent colors 
   const randomColor = () => {
     setshowrecent(true);
     let r = randomColorValue();
@@ -89,7 +75,7 @@ function App() {
     if (history.length > 10) {
       history.pop();
     }
-    setRecentColor(history.slice(0, 8));
+    // setRecentColor(history.slice(0, 8));
     localStorage.setItem("color", JSON.stringify(history.slice(0, 8)));
     // let recent = localStorage.getItem("color");
   };
@@ -159,9 +145,10 @@ function App() {
               className={`recentlyGenerated py-3 ${!showRecent && "d-none"}`}
             >
               <Recentcolor
-                recent={recentColor}
+                recent={history.slice(0, 8)}
                 updatefromHstory={updatefromHstory}
                 clearRecent={clearRecent}
+                color4copy={color4copy}
               />
             </div>
           </div>

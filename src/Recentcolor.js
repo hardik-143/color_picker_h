@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { message, Tooltip } from "antd";
 
-function Recentcolor({ recent, updatefromHstory ,clearRecent}) {
+function Recentcolor({ recent, updatefromHstory ,clearRecent,color4copy}) {
   const [showAll, setShowAll] = useState(false);
   return (
     <div className="recents ">
@@ -28,7 +28,7 @@ function Recentcolor({ recent, updatefromHstory ,clearRecent}) {
         {recent.map((item, index) => {
           return (
             <div className="btnWrapper" key={index}>
-              <Tooltip title={item}>
+              <Tooltip title={color4copy}>
                 <div
                   className="recentClrBtn"
                   style={{ background: item }}
