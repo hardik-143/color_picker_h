@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import 'antd/dist/antd.css'; 
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-
+// eslint-disable-next-line
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+// eslint-disable-next-line
+import "../node_modules/antd/dist/reset.css";
+// eslint-disable-next-line
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </>,
+  document.getElementById("root")
 );
-
