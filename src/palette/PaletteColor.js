@@ -24,7 +24,6 @@ function PaletteColor({ color, index, isrgb }) {
           // key={index}
           onClick={() => {
             navigator.clipboard.writeText(clr);
-            message.open({ content: `color ${clr} copied` }, 2);
           }}
         ></div>
       </Tooltip>
