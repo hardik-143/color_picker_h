@@ -7,10 +7,11 @@ import App from "./App";
 import "../node_modules/antd/dist/reset.css";
 // eslint-disable-next-line
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { AppProvider } from "./context";
 
 ReactDOM.render(
-  <>
+  <AppProvider>
     <App />
-  </>,
+  </AppProvider>,
   document.getElementById("root")
 );

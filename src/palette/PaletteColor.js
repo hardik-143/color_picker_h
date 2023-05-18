@@ -1,15 +1,14 @@
-import { Tooltip ,message} from "antd";
+import { Tooltip, message } from "antd";
 import React from "react";
+import { useGlobalContext } from "../context";
 
-function PaletteColor({ color, index, isrgb }) {
-  // destructing  color object
+function PaletteColor({ color, index}) {
+  const { isRGB } = useGlobalContext();
   const { rgb, hex } = color;
-  // rgb string
   let rgbColor = `rgb(${rgb})`;
-  // hex string
   let hexColor = `#${hex}`;
   let clr;
-  if (isrgb) {
+  if (isRGB) {
     clr = rgbColor;
   } else {
     clr = hexColor;
@@ -24,6 +23,7 @@ function PaletteColor({ color, index, isrgb }) {
           // key={index}
           onClick={() => {
             navigator.clipboard.writeText(clr);
+            message.open({ content: `color ${clr} copied` }, 2);
           }}
         ></div>
       </Tooltip>

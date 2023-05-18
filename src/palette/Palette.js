@@ -1,11 +1,13 @@
-import {React, memo} from "react";
+import { React, memo } from "react";
 import Values from "values.js";
 import PaletteColor from "./PaletteColor";
+import { useGlobalContext } from "../context";
 
-function Palette({  rgbCode, isrgb }) {
-  // getting color values for palette 
+function Palette() {
+  const { rgbCode, isRGB } = useGlobalContext();
+  // getting color values for palette
   const color = new Values(rgbCode).all(20);
-  // removing base color 
+  // removing base color
   let clrfiltered = color.filter((color) => color.type !== "base");
   // removing white & black color from palette with slicing first & last element
   const colors = clrfiltered.slice(1, 9);
@@ -20,7 +22,6 @@ function Palette({  rgbCode, isrgb }) {
               color={color}
               index={index}
               key={index}
-              isrgb={isrgb}
             />
           );
         })}
