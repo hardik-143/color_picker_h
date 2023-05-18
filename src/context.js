@@ -10,20 +10,22 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const colors = ["red", "green", "blue"]; // colors array
+
   const [colorObj, setColorObj] = useState({
     red: 222,
     green: 215,
     blue: 34,
-  }); // color object
-  //   change color
+  }); // color object with rgb values
+
+  //   change color function
   function ChangeColor(c, e) {
     setColorObj((previousState) => {
       return { ...previousState, [c]: e };
     });
   }
-  //   change color
-  const { red, green, blue } = colorObj; // destructing color object
-  const [rgbCode, setrgbCode] = useState(`rgb(${red},${green},${blue})`); // rgb string
+  //   change color function
+  const { red, green, blue } = colorObj; // destructing color object into three colors
+  const [rgbCode, setrgbCode] = useState(`rgb(${red},${green},${blue})`); // rgb string for copy and show
   const rgb2hex = useCallback(() => {
     return (
       "#" +
@@ -31,8 +33,8 @@ const AppProvider = ({ children }) => {
       convertsingleRGBToHex(green) +
       convertsingleRGBToHex(blue)
     );
-  }, [red, green, blue]); // converting rgb to hex
-  const [hexCode, setHexcode] = useState(); // hex string
+  }, [red, green, blue]); // converting rgb to hex 
+  const [hexCode, setHexcode] = useState(); // hex string for copy and show
   const [isRGB, setisRGB] = useState(true); // is color rgb or hex
   useEffect(() => {
     setHexcode(rgb2hex());
@@ -42,7 +44,7 @@ const AppProvider = ({ children }) => {
     } else {
       setColor4copy(hexCode);
     }
-  }, [rgb2hex, blue, green, red, isRGB, rgbCode, hexCode]);
+  }, [rgb2hex, blue, green, red, isRGB, rgbCode, hexCode]); // converting rgb to hex and adding to color4copy ON CHANGE OF COLORS
 
   const [history, setHistory] = useState([]); // recent colors
   const [color4copy, setColor4copy] = useState(""); // color for copy

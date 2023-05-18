@@ -15,7 +15,7 @@ function Recentcolor() {
 
   const [showAll, setShowAll] = useState(false);
   return (
-    <div className="recents ">
+    <div className="recents">
       <div className="d-flex align-items-center justify-content-between align-items-center flex-wrap mb-2">
         <h4 className="heading m-0">recently generated</h4>
         <div className="align-items-center">
@@ -25,6 +25,7 @@ function Recentcolor() {
             }`}
             onClick={() => {
               clearRecent();
+              setShowAll(false);
               message.open({ content: "recently generated cleared" }, 2);
             }}
           >
