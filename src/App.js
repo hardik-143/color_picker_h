@@ -1,6 +1,5 @@
 import React from "react";
 import Recentcolor from "./RecentColor/Recentcolor";
-import Colorcode from "./PickerBody/Colorcode";
 import Palette from "./palette/Palette";
 import PickerBody from "./PickerBody/PickerBody";
 import { useGlobalContext } from "./context";

@@ -42,7 +42,7 @@ const AppProvider = ({ children }) => {
     } else {
       setColor4copy(hexCode);
     }
-  }, [rgb2hex, colorObj, isRGB, rgbCode, hexCode]);
+  }, [rgb2hex, blue, green, red, isRGB, rgbCode, hexCode]);
 
   const [history, setHistory] = useState([]); // recent colors
   const [color4copy, setColor4copy] = useState(""); // color for copy

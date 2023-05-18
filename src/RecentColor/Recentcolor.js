@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { message, Tooltip } from "antd";
 import { useGlobalContext } from "../context";
 
@@ -21,7 +21,7 @@ function Recentcolor() {
         <div className="align-items-center">
           <button
             className={`clearRecent customBtn smallBtn ${
-              history.slice(0, 8).length == 0 ? "d-none" : null
+              history.slice(0, 8).length === 0 ? "d-none" : null
             }`}
             onClick={() => {
               clearRecent();

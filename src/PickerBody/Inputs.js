@@ -3,7 +3,7 @@ import { Slider } from "antd";
 import { useGlobalContext } from "../context";
 
 function Inputs({ color }) {
-  const { ChangeColor ,colors,colorObj} = useGlobalContext();
+  const { ChangeColor ,colorObj} = useGlobalContext();
   return (
     <>
       <div className="clrSlider">

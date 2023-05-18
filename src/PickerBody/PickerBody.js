@@ -1,4 +1,4 @@
-import { MdOutlineContentCopy, MdFindReplace } from "react-icons/md";
+import { MdOutlineContentCopy } from "react-icons/md";
 import React from "react";
 import { useGlobalContext } from "../context";
 import Colorcode from "./Colorcode";
