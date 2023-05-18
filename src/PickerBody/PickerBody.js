@@ -5,7 +5,7 @@ import Colorcode from "./Colorcode";
 import Inputs from "./Inputs";
 import { message } from "antd";
 const PickerBody = () => {
-  const { color4copy, isRGB, setisRGB, colors, randomColor } =
+  const { color4copy, isRGB, setisRGB, colors, randomColor, setMessage } =
     useGlobalContext();
   return (
     <>
@@ -14,7 +14,7 @@ const PickerBody = () => {
           <MdOutlineContentCopy
             onClick={() => {
               navigator.clipboard.writeText(color4copy);
-              message.open({ content: `color ${color4copy} copied` }, 2);
+              setMessage(`color ${color4copy} copied`);
             }}
             className="me-2 fs-5 copyIcon position-relative"
           />
@@ -27,12 +27,7 @@ const PickerBody = () => {
             className="convertColorcodeBtn customBtn"
             onClick={() => {
               setisRGB(!isRGB);
-              message.open(
-                {
-                  content: `color type changed to ` + (!isRGB ? `rgb` : `hex`),
-                },
-                2
-              );
+              setMessage(`color type changed to ` + (!isRGB ? `rgb` : `hex`));
             }}
           >
             convert to {isRGB ? "hex" : "rgb"}

@@ -2,8 +2,8 @@ import { Tooltip, message } from "antd";
 import React from "react";
 import { useGlobalContext } from "../context";
 
-function PaletteColor({ color, index}) {
-  const { isRGB } = useGlobalContext();
+function PaletteColor({ color, index }) {
+  const { isRGB,setMessage } = useGlobalContext();
   const { rgb, hex } = color;
   let rgbColor = `rgb(${rgb})`;
   let hexColor = `#${hex}`;
@@ -23,7 +23,7 @@ function PaletteColor({ color, index}) {
           // key={index}
           onClick={() => {
             navigator.clipboard.writeText(clr);
-            message.open({ content: `color ${clr} copied` }, 2);
+            setMessage(`color ${clr} copied`)
           }}
         ></div>
       </Tooltip>

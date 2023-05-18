@@ -3,7 +3,7 @@ import { message, Tooltip } from "antd";
 import { useGlobalContext } from "../context";
 
 function Recentcolor() {
-  const { clearRecent, history, setColorObj } = useGlobalContext();
+  const { clearRecent, history, setColorObj,setMessage } = useGlobalContext();
   const updatefromHistory = (rgb) => {
     rgb = rgb
       .substring(4, rgb.length - 1)
@@ -26,7 +26,7 @@ function Recentcolor() {
             onClick={() => {
               clearRecent();
               setShowAll(false);
-              message.open({ content: "recently generated cleared" }, 2);
+              setMessage("recently generated cleared")
             }}
           >
             clear

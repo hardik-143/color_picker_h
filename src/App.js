@@ -14,14 +14,14 @@ function App() {
           background: `rgb(${colorObj.red},${colorObj.green},${colorObj.blue})`,
         }}
       >
-        <section className="container max-width-500 py-5">
+        <section className="container py-5">
           <div className="wrapper ">
             <PickerBody />
-            <div className="paletteDiv py-3">
-              <Palette />
-            </div>
+
+            <Palette />
+
             <div
-              className={`recentlyGenerated py-2 ${!showRecent && "close"}`}
+              className={`recentlyGenerated py-2 ${!showRecent ? "close" : ""}`}
             >
               <Recentcolor />
             </div>

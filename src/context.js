@@ -1,3 +1,4 @@
+import { message } from "antd";
 import {
   createContext,
   useCallback,
@@ -106,6 +107,10 @@ const AppProvider = ({ children }) => {
     setshowrecent(false);
   };
   // clear revent history
+
+  const setMessage =(msg)=>{
+    message.open({ content: msg}, 2);
+  }
   return (
     <AppContext.Provider
       value={{
@@ -128,6 +133,7 @@ const AppProvider = ({ children }) => {
         setshowrecent,
         history,
         setHistory,
+        setMessage
       }}
     >
       {children}
