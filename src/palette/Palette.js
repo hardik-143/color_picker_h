@@ -3,7 +3,7 @@ import Values from "values.js";
 import PaletteColor from "./PaletteColor";
 import { useGlobalContext } from "../context";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
+// import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
   const handle = useFullScreenHandle();
   const [pltColors, setPltColors] = useState([]);
@@ -28,14 +28,14 @@ function Palette() {
     updatePalette();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rgbCode, handle]);
-  const toggleFullScreen = () => {
-    if (handle.active) {
-      handle.exit();
-    } else {
-      handle.enter();
-    }
-    updatePalette();
-  };
+  // const toggleFullScreen = () => {
+  //   if (handle.active) {
+  //     handle.exit();
+  //   } else {
+  //     handle.enter();
+  //   }
+  //   updatePalette();
+  // };
   return (
     <>
       <FullScreen handle={handle}>

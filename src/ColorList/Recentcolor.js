@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { message, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { useGlobalContext } from "../context";
 
 function Recentcolor() {
-  const { clearRecent, history, setColorObj,setMessage } = useGlobalContext();
+  const { clearRecent, history, setColorObj, setMessage } = useGlobalContext();
   const updatefromHistory = (rgb) => {
     rgb = rgb
       .substring(4, rgb.length - 1)
@@ -26,7 +26,7 @@ function Recentcolor() {
             onClick={() => {
               clearRecent();
               setShowAll(false);
-              setMessage("recently generated cleared")
+              setMessage("recently generated cleared");
             }}
           >
             clear

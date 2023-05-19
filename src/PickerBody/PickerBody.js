@@ -3,7 +3,6 @@ import React from "react";
 import { useGlobalContext } from "../context";
 import Colorcode from "./Colorcode";
 import Inputs from "./Inputs";
-import { message } from "antd";
 const PickerBody = () => {
   const { color4copy, isRGB, setisRGB, colors, randomColor, setMessage } =
     useGlobalContext();

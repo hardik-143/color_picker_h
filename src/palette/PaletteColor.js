@@ -1,4 +1,4 @@
-import { Tooltip, message } from "antd";
+import { Tooltip } from "antd";
 import React from "react";
 import { useGlobalContext } from "../context";
 
