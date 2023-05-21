@@ -1,4 +1,3 @@
-import { message } from "antd";
 import {
   createContext,
   useCallback,
@@ -6,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-hot-toast";
 
 const AppContext = createContext();
 
@@ -34,7 +34,7 @@ const AppProvider = ({ children }) => {
       convertsingleRGBToHex(green) +
       convertsingleRGBToHex(blue)
     );
-  }, [red, green, blue]); // converting rgb to hex 
+  }, [red, green, blue]); // converting rgb to hex
   const [hexCode, setHexcode] = useState(); // hex string for copy and show
   const [isRGB, setisRGB] = useState(true); // is color rgb or hex
   useEffect(() => {
@@ -108,9 +108,13 @@ const AppProvider = ({ children }) => {
   };
   // clear revent history
 
-  const setMessage =(msg)=>{
-    message.open({ content: msg}, 2);
-  }
+  const setMessage = (msg) => {
+    // message.open({ content: msg}, 2);
+    toast(msg, {
+      duration: 2000,
+      className: "custom_toast",
+    });
+  };
   return (
     <AppContext.Provider
       value={{
@@ -133,7 +137,7 @@ const AppProvider = ({ children }) => {
         setshowrecent,
         history,
         setHistory,
-        setMessage
+        setMessage,
       }}
     >
       {children}

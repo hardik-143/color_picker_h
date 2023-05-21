@@ -258,3 +258,17 @@ h3.colorCode {
 }
 
 // fullscreen
+
+// toast
+.custom_toast {
+  border: 2px solid #c4dfdf;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 10px rgba(80, 80, 80, 0.2),
+    inset 0 4px 10px rgba(80, 80, 80, 0.2) !important;
+  > div {
+    margin: 2px 4px;
+    font-weight: 600;
+    background: none !important;
+  }
+}
+// toast
