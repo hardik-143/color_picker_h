@@ -3,7 +3,14 @@ import { Tooltip } from "antd";
 import { useGlobalContext } from "../context";
 
 function Recentcolor() {
-  const { clearRecent, history, setColorObj, setMessage } = useGlobalContext();
+  const {
+    clearRecent,
+    history,
+    setColorObj,
+    setMessage,
+    convertsingleRGBToHex,
+    isRGB,
+  } = useGlobalContext();
   const updatefromHistory = (rgb) => {
     rgb = rgb
       .substring(4, rgb.length - 1)
@@ -11,6 +18,17 @@ function Recentcolor() {
       .split(",");
     let [r, g, b] = rgb;
     setColorObj({ red: r, green: g, blue: b });
+  };
+
+  const getHexColor = (rgb) => {
+    rgb = rgb
+      .substring(4, rgb.length - 1)
+      .replace(/ /g, "")
+      .split(",");
+    let [r, g, b] = rgb;
+    return `#${convertsingleRGBToHex(Number(r))}${convertsingleRGBToHex(
+      Number(g)
+    )}${convertsingleRGBToHex(Number(b))}`;
   };
 
   const [showAll, setShowAll] = useState(false);
@@ -49,7 +67,7 @@ function Recentcolor() {
         {history.slice(0, 8).map((item, index) => {
           return (
             <div className="btnWrapper" key={index}>
-              <Tooltip title={item}>
+              <Tooltip title={isRGB ? item : getHexColor(item)}>
                 <div
                   className="recentClrBtn"
                   style={{ background: item }}

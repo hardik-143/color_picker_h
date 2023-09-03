@@ -23,7 +23,7 @@ function App() {
             <Palette />
 
             <div
-              className={`recentlyGenerated py-2 ${!showRecent ? "close" : ""}`}
+              className={`recentlyGenerated pt-2 ${!showRecent ? "close" : ""}`}
             >
               <Recentcolor />
             </div>
