@@ -175,16 +175,19 @@ h3.colorCode {
   margin: 2px;
   border-radius: 4px;
   outline: none;
-  border: 2px solid transparent;
+  border: 1px solid #202020;
   line-height: 28px;
   user-select: none;
   font-size: 13px !important;
   transition: all 0.3s ease;
   text-transform: capitalize;
-  :hover {
-    border-color: #202020;
+  &:hover {
     background: none;
     color: #202020;
+    box-shadow: 0 4px 4px rgba(80, 80, 80, 0.2);
+  }
+  &:active {
+    transform: scale(0.95);
   }
   .smallBtn {
     padding: 0 8px;
