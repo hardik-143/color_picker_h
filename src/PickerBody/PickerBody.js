@@ -4,8 +4,16 @@ import { useGlobalContext } from "../context";
 import Colorcode from "./Colorcode";
 import Inputs from "./Inputs";
 const PickerBody = () => {
-  const { color4copy, isRGB, setisRGB, colors, randomColor, setMessage } =
-    useGlobalContext();
+  const {
+    color4copy,
+    isRGB,
+    setisRGB,
+    colors,
+    randomColor,
+    setMessage,
+    showRecentBtn,
+    addColorToRecent
+  } = useGlobalContext();
   return (
     <>
       <div className="picker-body text-center">
@@ -21,7 +29,7 @@ const PickerBody = () => {
             <Colorcode />
           </h3>
         </div>
-        <div>
+        <div className="d-flex align-items-center flex-wrap justify-content-center gap-1">
           <button
             className="convertColorcodeBtn customBtn"
             onClick={() => {
@@ -39,6 +47,16 @@ const PickerBody = () => {
           >
             generate random
           </button>
+          {showRecentBtn && (
+            <button
+              className="add2recentBtn customBtn"
+              onClick={() => {
+                addColorToRecent();
+              }}
+            >
+              add to recent
+            </button>
+          )}
         </div>
         {colors.map((clr, index) => {
           return <Inputs key={index} color={clr} />;

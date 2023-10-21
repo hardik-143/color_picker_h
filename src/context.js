@@ -11,6 +11,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const colors = ["red", "green", "blue"]; // colors array
+  const [showRecentBtn, setshowRecentBtn] = useState(false); // show recent button
 
   const [colorObj, setColorObj] = useState({
     red: 222,
@@ -20,6 +21,7 @@ const AppProvider = ({ children }) => {
 
   //   change color function
   function ChangeColor(c, e) {
+    setshowRecentBtn(true);
     setColorObj((previousState) => {
       return { ...previousState, [c]: e };
     });
@@ -89,6 +91,26 @@ const AppProvider = ({ children }) => {
   };
   // generating random color and adding in recent colors
 
+
+  // add color to recent
+  const addColorToRecent = () => {
+    let color = `rgb(${red},${green},${blue})`;
+    let temp = [...history];
+    if(history.includes(color)){
+      return;
+    }
+    setHistory([color, ...temp]);
+    if (history.length > 10) {
+      temp = [...history];
+      setHistory(temp.slice(0, 9));
+    }
+    setshowrecent(true);
+    setshowRecentBtn(false)
+    localStorage.setItem("color", JSON.stringify(history.slice(0, 8)));
+  }
+  // add color to recent
+
+
   // if there'll be recent colors in localstorage then show recent section will be visible
   const [showRecent, setshowrecent] = useState(() => {
     if (history.length === 0) {
@@ -145,6 +167,8 @@ const AppProvider = ({ children }) => {
         history,
         setHistory,
         setMessage,
+        showRecentBtn,
+        addColorToRecent
       }}
     >
       {children}

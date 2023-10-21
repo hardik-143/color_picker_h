@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tooltip } from "antd";
 import { useGlobalContext } from "../context";
 
@@ -13,29 +13,45 @@ function Recentcolor() {
   } = useGlobalContext();
   const updatefromHistory = (rgb) => {
     rgb = rgb
-      .substring(4, rgb.length - 1)
-      .replace(/ /g, "")
-      .split(",");
+    .substring(4, rgb.length - 1)
+    .replace(/ /g, "")
+    .split(",");
     let [r, g, b] = rgb;
     setColorObj({ red: r, green: g, blue: b });
   };
-
+  
   const getHexColor = (rgb) => {
     rgb = rgb
-      .substring(4, rgb.length - 1)
-      .replace(/ /g, "")
-      .split(",");
+    .substring(4, rgb.length - 1)
+    .replace(/ /g, "")
+    .split(",");
     let [r, g, b] = rgb;
     return `#${convertsingleRGBToHex(Number(r))}${convertsingleRGBToHex(
       Number(g)
-    )}${convertsingleRGBToHex(Number(b))}`;
-  };
-
-  const [showAll, setShowAll] = useState(false);
-  return (
-    <div className="recents">
+      )}${convertsingleRGBToHex(Number(b))}`;
+    };
+    
+    const [showAll, setShowAll] = useState(false);
+    const [colorsArr, setColorsArr] = useState(()=>{
+      if(history) {
+        var length = showAll ? 8 : 2;
+        return history.slice(0, length)
+      } else {
+        return []
+      }
+    });
+    useEffect(() => {
+      if(showAll){
+        setColorsArr(history.slice(0, 8))
+      }
+      else{
+        setColorsArr(history.slice(0, 2))
+      }
+    },[showAll,history]);
+    return (
+      <div className="recents">
       <div className="d-flex align-items-center justify-content-between align-items-center flex-wrap mb-2">
-        <h4 className="heading m-0">recently generated</h4>
+        <h4 className="heading m-0">recent</h4>
         <div className="align-items-center">
           <button
             className={`clearRecent customBtn smallBtn ${
@@ -64,7 +80,7 @@ function Recentcolor() {
         className={`recentsWrapper ${showAll && "openShowAll"} py-2 pt-0
        `}
       >
-        {history.slice(0, 8).map((item, index) => {
+        {colorsArr.map((item, index) => {
           return (
             <div className="btnWrapper" key={index}>
               <Tooltip title={isRGB ? item : getHexColor(item)}>
