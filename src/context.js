@@ -47,7 +47,14 @@ const AppProvider = ({ children }) => {
     }
   }, [rgb2hex, blue, green, red, isRGB, rgbCode, hexCode]); // converting rgb to hex and adding to color4copy ON CHANGE OF COLORS
 
-  const [history, setHistory] = useState([]); // recent colors
+  const getRecentColorsFromLocal = () => {
+    let recent = localStorage.getItem("color");
+    if (recent) {
+      return JSON.parse(recent);
+    }
+    return [];
+  }
+  const [history, setHistory] = useState(getRecentColorsFromLocal()); // recent colors
   const [color4copy, setColor4copy] = useState(""); // color for copy
   // converting color
 
