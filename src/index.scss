@@ -84,7 +84,7 @@ main {
       padding: 2rem 1rem 1rem;
       border-radius: 16px;
       position: relative;
-      box-shadow: 0 4px 15px rgba(80, 80, 80, 0.2);
+      box-shadow: 0 4px 15px rgb(89 89 89 / 32%);
       z-index: 1;
     }
   }
@@ -196,9 +196,6 @@ h3.colorCode {
 }
 
 @media screen and (max-width: 700px) {
-  .wrapper {
-    background: rgb(255, 255, 255);
-  }
   h4.heading {
     font-size: 18px;
   }
