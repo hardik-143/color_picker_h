@@ -5,12 +5,13 @@ import { useGlobalContext } from "../context";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import * as htmlToImage from "html-to-image";
 import { IoMdDownload } from "react-icons/io";
+import { Tooltip } from "antd";
 
 // import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
   const handle = useFullScreenHandle();
   const [pltColors, setPltColors] = useState([]);
-  const { rgbCode } = useGlobalContext();
+  const { rgbCode,setMessage } = useGlobalContext();
 
   const updatePalette = () => {
     let color;
@@ -52,6 +53,7 @@ function Palette() {
         link.download = "palette.png";
         link.href = dataUrl;
         link.click();
+        setMessage(`palette downloaded`)
       })
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
@@ -73,12 +75,14 @@ function Palette() {
                 <AiOutlineFullscreen />
               )}
             </button> */}
-            <button
-              className="downloadBtn customBtn _icon"
-              onClick={() => downloadPalette()}
-            >
-             <IoMdDownload /> 
-            </button>
+            <Tooltip title="download palette">
+              <button
+                className="downloadBtn customBtn _icon"
+                onClick={() => downloadPalette()}
+              >
+              <IoMdDownload /> 
+              </button>
+            </Tooltip>
           </div>
           <div className="colorPalette" id="colorPalette">
             {pltColors.map((color, index) => {
