@@ -175,6 +175,14 @@ h3.colorCode {
   font-size: 13px !important;
   transition: all 0.3s ease;
   text-transform: capitalize;
+  &._icon {
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
   &:hover {
     background: none;
     color: #202020;
@@ -183,7 +191,7 @@ h3.colorCode {
   &:active {
     transform: scale(0.95);
   }
-  .smallBtn {
+  &.smallBtn {
     padding: 0 8px;
     font-size: 12px !important;
     line-height: 20px;

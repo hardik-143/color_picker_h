@@ -3,6 +3,9 @@ import Values from "values.js";
 import PaletteColor from "./PaletteColor";
 import { useGlobalContext } from "../context";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import * as htmlToImage from "html-to-image";
+import { IoMdDownload } from "react-icons/io";
+
 // import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
   const handle = useFullScreenHandle();
@@ -36,11 +39,29 @@ function Palette() {
   //   }
   //   updatePalette();
   // };
+
+  const downloadPalette = () => {
+    var node = document.getElementById("colorPalette");
+    htmlToImage
+      .toPng(node)
+      .then(function (dataUrl) {
+        var img = new Image();
+        // download image
+        img.src = dataUrl;
+        var link = document.createElement("a");
+        link.download = "palette.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch(function (error) {
+        console.error("oops, something went wrong!", error);
+      });
+  };
   return (
     <>
       <FullScreen handle={handle}>
         <div className="paletteDiv-main py-3">
-          <div className="header">
+          <div className="header mb-2">
             <h4 className="heading">Palette</h4>
             {/* <button
               className="full-screenbutton"
@@ -52,8 +73,14 @@ function Palette() {
                 <AiOutlineFullscreen />
               )}
             </button> */}
+            <button
+              className="downloadBtn customBtn _icon"
+              onClick={() => downloadPalette()}
+            >
+             <IoMdDownload /> 
+            </button>
           </div>
-          <div className="colorPalette">
+          <div className="colorPalette" id="colorPalette">
             {pltColors.map((color, index) => {
               return <PaletteColor color={color} index={index} key={index} />;
             })}
