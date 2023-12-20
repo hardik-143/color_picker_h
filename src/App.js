@@ -6,7 +6,7 @@ import { useGlobalContext } from "./context";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { colorObj, showRecent } = useGlobalContext();
+  const { colorObj } = useGlobalContext();
 
   return (
     <>
