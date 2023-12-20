@@ -6,7 +6,7 @@ function Inputs({ color }) {
   const { ChangeColor ,colorObj} = useGlobalContext();
   return (
     <>
-      <div className={`clrSlider ${color}`}>
+      <div className={`text-left p-[5px_10px_0] ${color}`}>
         <label htmlFor={color}>{color}</label>
         <Slider
           value={colorObj[color]}

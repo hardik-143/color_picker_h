@@ -17,7 +17,7 @@ function PaletteColor({ color, index }) {
     <>
       <Tooltip title={clr}>
         <div
-          className="paletteDiv"
+          className="paletteDiv h-[50px] flex items-center justify-center"
           id={`pallete-${index}`}
           style={{ background: `${clr}` }}
           // key={index}

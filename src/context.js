@@ -107,6 +107,9 @@ const AppProvider = ({ children }) => {
     setshowrecent(true);
     setshowRecentBtn(false)
     localStorage.setItem("color", JSON.stringify(history.slice(0, 8)));
+    setMessage(`${
+      isRGB ? `rgb(${red},${green},${blue})` : `${rgb2hex()}`
+    } added to recent`)
   }
   // add color to recent
 
@@ -140,7 +143,7 @@ const AppProvider = ({ children }) => {
   const setMessage = (msg) => {
     // message.open({ content: msg}, 2);
     toast(msg, {
-      duration: 2000,
+      duration: 20000,
       className: "custom_toast",
     });
   };

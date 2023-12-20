@@ -63,8 +63,8 @@ function Palette() {
     <>
       <FullScreen handle={handle}>
         <div className="paletteDiv-main py-3">
-          <div className="header mb-2">
-            <h4 className="heading">Palette</h4>
+          <div className="flex justify-between items-center h-[30px] pb-[5px] mb-2">
+            <h4 className="text-2xl">Palette</h4>
             {/* <button
               className="full-screenbutton"
               onClick={() => toggleFullScreen()}
@@ -75,16 +75,18 @@ function Palette() {
                 <AiOutlineFullscreen />
               )}
             </button> */}
-            <Tooltip title="download palette">
-              <button
-                className="downloadBtn customBtn _icon"
-                onClick={() => downloadPalette()}
-              >
-              <IoMdDownload /> 
-              </button>
-            </Tooltip>
+            <div>
+              <Tooltip title="download palette">
+                <button
+                  className="downloadBtn customBtn _icon"
+                  onClick={() => downloadPalette()}
+                >
+                <IoMdDownload /> 
+                </button>
+              </Tooltip>
+            </div>
           </div>
-          <div className="colorPalette" id="colorPalette">
+          <div className="colorPalette grid grid-cols-4 md:grid-cols-8" id="colorPalette">
             {pltColors.map((color, index) => {
               return <PaletteColor color={color} index={index} key={index} />;
             })}

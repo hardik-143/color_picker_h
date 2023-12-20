@@ -17,19 +17,19 @@ const PickerBody = () => {
   return (
     <>
       <div className="picker-body text-center">
-        <div className="d-flex align-items-center mb-3 justify-content-center">
+        <div className="flex items-center mb-3 justify-center gap-2">
           <MdOutlineContentCopy
             onClick={() => {
               navigator.clipboard.writeText(color4copy);
               setMessage(`color ${color4copy} copied`);
             }}
-            className="me-2 fs-5 copyIcon position-relative"
+            className="relative w-[30px]"
           />
-          <h3 className="colorCode py-2 ps-0 px-3 m-0 user-select-none position-relative">
+          <h4 className="text-2xl lowercase py-2 ps-0 px-3 m-0 user-select-none position-relative">
             <Colorcode />
-          </h3>
+          </h4>
         </div>
-        <div className="d-flex align-items-center flex-wrap justify-content-center gap-1">
+        <div className="flex items-center flex-wrap justify-center gap-2">
           <button
             className="convertColorcodeBtn customBtn"
             onClick={() => {
