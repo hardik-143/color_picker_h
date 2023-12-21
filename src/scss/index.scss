@@ -38,17 +38,17 @@ body {
 }
 // antd override
 .ant-slider-rail {
-  @apply  bg-[#00000029] #{!important};
+  @apply  bg-[#00000029];
 }
 .ant-slider {
-  @apply my-[5px] mx-0 #{!important};
+  @apply my-[5px] mx-0;
 }
 .ant-slider-handle,
 .ant-slider-track {
-  @apply transition-all duration-300 ease-linear #{!important};
+  @apply transition-all duration-300 ease-linear;
 }
 .ant-message-notice-content {
-  @apply border border-solid border-[#202020] #{!important};
+  @apply border border-solid border-[#202020];
 }
 $rgb: "red", "green", "blue";
 @each $color in $rgb {
@@ -93,7 +93,7 @@ $rgb: "red", "green", "blue";
     @apply p-0 w-[28px] h-[28px] inline-flex items-center justify-center;
   }
   &:hover {
-    @apply bg-opacity-0 text-black shadow-[0px_4px_10px_rgba(80,80,80,0.2)] #{!important};
+    @apply bg-opacity-0 text-black shadow-[0px_4px_10px_rgba(80,80,80,0.2)];
   }
   &:active {
     @apply scale-95;
@@ -115,7 +115,7 @@ $rgb: "red", "green", "blue";
 // fullscreen
 .fullscreen-enabled:has(.paletteDiv-main) {
   .paletteDiv-main {
-    @apply min-h-screen p-[10px]  #{!important};
+    @apply min-h-screen p-[10px];
   }
   .paletteDiv {
     @apply h-[unset] w-[unset] aspect-square;
