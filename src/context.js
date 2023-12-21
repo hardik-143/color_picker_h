@@ -12,12 +12,21 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const colors = ["red", "green", "blue"]; // colors array
   const [showRecentBtn, setshowRecentBtn] = useState(false); // show recent button
-
-  const [colorObj, setColorObj] = useState({
-    red: 222,
-    green: 215,
-    blue: 34,
-  }); // color object with rgb values
+  const checkColorsInUrl = () => {
+    let url = window.location.href;
+    let color = url.split("?color=")[1];
+    if (color) {
+      let r = color.substring(0, 3);
+      let g = color.substring(3, 6);
+      let b = color.substring(6, 9);
+      let newurl = url.split("?")[0];
+      window.history.pushState({}, null, newurl);
+      return { red: r, green: g, blue: b };
+    } else {
+      return { red: 222, green: 215, blue: 34 };
+    }
+  };
+  const [colorObj, setColorObj] = useState(checkColorsInUrl); // color object with rgb values
 
   //   change color function
   function ChangeColor(c, e) {

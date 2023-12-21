@@ -4,14 +4,26 @@ import PaletteColor from "./PaletteColor";
 import { useGlobalContext } from "../context";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import * as htmlToImage from "html-to-image";
-import { IoMdDownload } from "react-icons/io";
+import { IoMdDownload , IoIosLink } from "react-icons/io";
+
 import { Tooltip } from "antd";
 
 // import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
   const handle = useFullScreenHandle();
   const [pltColors, setPltColors] = useState([]);
-  const { rgbCode,setMessage } = useGlobalContext();
+  const { rgbCode,setMessage,colorObj } = useGlobalContext();
+
+  const copyPaletteLink = () => {
+    let { red, green, blue } = colorObj;
+    red = red< 10 ? `00${red}` : red< 100 ? `0${red}` : red;
+    green = green< 10 ? `00${green}` : green< 100 ? `0${green}` : green;
+    blue = blue< 10 ? `00${blue}` : blue< 100 ? `0${blue}` : blue;
+
+    let link = `${window.location.origin}?color=${red}${green}${blue}`;
+    navigator.clipboard.writeText(link);
+    setMessage(`palette link copied`)
+  }
 
   const updatePalette = () => {
     let color;
@@ -76,6 +88,14 @@ function Palette() {
               )}
             </button> */}
             <div>
+            <Tooltip title="copy link">
+                <button
+                  className="downloadBtn customBtn _icon"
+                  onClick={() => copyPaletteLink()}
+                >
+                <IoIosLink /> 
+                </button>
+              </Tooltip>
               <Tooltip title="download palette">
                 <button
                   className="downloadBtn customBtn _icon"
