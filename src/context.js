@@ -143,7 +143,7 @@ const AppProvider = ({ children }) => {
   const setMessage = (msg) => {
     // message.open({ content: msg}, 2);
     toast(msg, {
-      duration: 20000,
+      duration: 2000,
       className: "custom_toast",
     });
   };

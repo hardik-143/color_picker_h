@@ -57,10 +57,10 @@ function Recentcolor() {
       <div className="recents">
         <div className="flex items-center justify-between flex-wrap mb-2">
           <h4 className="text-2xl m-0">recent</h4>
-          <div className="flex items-center">
+          <div className={`flex items-center`}>
             <button
               className={`clearRecent customBtn smallBtn ${
-                history.slice(0, 8).length === 0 ? "d-none" : null
+                history.slice(0, 8).length === 0 ? "hidden" : null
               }`}
               onClick={() => {
                 clearRecent();
@@ -70,9 +70,10 @@ function Recentcolor() {
             >
               clear
             </button>
+            
             <button
               className={`seeAll  smallBtn
-             customBtn ${history.slice(0, 8).length <= 2 ? "d-none" : null}`}
+             customBtn ${history.slice(0, 8).length <= 2 ? "hidden" : null}`}
               onClick={() => {
                 setShowAll(!showAll);
               }}
