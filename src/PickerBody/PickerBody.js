@@ -3,6 +3,7 @@ import React from "react";
 import { useGlobalContext } from "../context";
 import Colorcode from "./Colorcode";
 import Inputs from "./Inputs";
+import { setMessage } from "../utils";
 const PickerBody = () => {
   const {
     color4copy,
@@ -10,7 +11,6 @@ const PickerBody = () => {
     setisRGB,
     colors,
     randomColor,
-    setMessage,
     showRecentBtn,
     addColorToRecent
   } = useGlobalContext();
@@ -25,7 +25,7 @@ const PickerBody = () => {
             }}
             className="relative w-[30px]"
           />
-          <h4 className="text-2xl lowercase py-2 ps-0 px-3 m-0 user-select-none position-relative">
+          <h4 className="text-2xl lowercase py-2 ps-0 px-3 m-0 select-none">
             <Colorcode />
           </h4>
         </div>

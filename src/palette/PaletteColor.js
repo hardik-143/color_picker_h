@@ -1,9 +1,10 @@
 import { Tooltip } from "antd";
 import React from "react";
 import { useGlobalContext } from "../context";
+import { setMessage } from "../utils";
 
 function PaletteColor({ color, index }) {
-  const { isRGB,setMessage } = useGlobalContext();
+  const { isRGB } = useGlobalContext();
   const { rgb, hex } = color;
   let rgbColor = `rgb(${rgb})`;
   let hexColor = `#${hex}`;

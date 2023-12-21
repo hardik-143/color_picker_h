@@ -4,26 +4,25 @@ import PaletteColor from "./PaletteColor";
 import { useGlobalContext } from "../context";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import * as htmlToImage from "html-to-image";
-import { IoMdDownload , IoIosLink } from "react-icons/io";
+import { IoMdDownload, IoIosLink } from "react-icons/io";
 
 import { Tooltip } from "antd";
+import { get3digit, setMessage } from "../utils";
 
 // import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
   const handle = useFullScreenHandle();
   const [pltColors, setPltColors] = useState([]);
-  const { rgbCode,setMessage,colorObj } = useGlobalContext();
+  const { rgbCode, colorObj } = useGlobalContext();
 
   const copyPaletteLink = () => {
     let { red, green, blue } = colorObj;
-    red = red< 10 ? `00${red}` : red< 100 ? `0${red}` : red;
-    green = green< 10 ? `00${green}` : green< 100 ? `0${green}` : green;
-    blue = blue< 10 ? `00${blue}` : blue< 100 ? `0${blue}` : blue;
-
-    let link = `${window.location.origin}?color=${red}${green}${blue}`;
+    let link = `${window.location.origin}?palette=${get3digit(red)}${get3digit(
+      green
+    )}${get3digit(blue)}`;
     navigator.clipboard.writeText(link);
-    setMessage(`palette link copied`)
-  }
+    setMessage(`palette link copied`);
+  };
 
   const updatePalette = () => {
     let color;
@@ -65,7 +64,7 @@ function Palette() {
         link.download = "palette.png";
         link.href = dataUrl;
         link.click();
-        setMessage(`palette downloaded`)
+        setMessage(`palette downloaded`);
       })
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
@@ -75,7 +74,7 @@ function Palette() {
     <>
       <FullScreen handle={handle}>
         <div className="paletteDiv-main py-3">
-          <div className="flex justify-between items-center h-[30px] pb-[5px] mb-2">
+          <div className="flex justify-between items-center h-[30px] mb-2">
             <h4 className="text-2xl">Palette</h4>
             {/* <button
               className="full-screenbutton"
@@ -87,13 +86,13 @@ function Palette() {
                 <AiOutlineFullscreen />
               )}
             </button> */}
-            <div>
-            <Tooltip title="copy link">
+            <div className="flex items-center gap-1">
+              <Tooltip title="copy link">
                 <button
                   className="downloadBtn customBtn _icon"
                   onClick={() => copyPaletteLink()}
                 >
-                <IoIosLink /> 
+                  <IoIosLink />
                 </button>
               </Tooltip>
               <Tooltip title="download palette">
@@ -101,12 +100,15 @@ function Palette() {
                   className="downloadBtn customBtn _icon"
                   onClick={() => downloadPalette()}
                 >
-                <IoMdDownload /> 
+                  <IoMdDownload />
                 </button>
               </Tooltip>
             </div>
           </div>
-          <div className="colorPalette grid grid-cols-4 md:grid-cols-8" id="colorPalette">
+          <div
+            className="colorPalette grid grid-cols-4 md:grid-cols-8"
+            id="colorPalette"
+          >
             {pltColors.map((color, index) => {
               return <PaletteColor color={color} index={index} key={index} />;
             })}

@@ -5,39 +5,46 @@ import {
   useEffect,
   useState,
 } from "react";
-import { toast } from "react-hot-toast";
-
+import {
+  checkPaletteColorsInUrl,
+  randomColorValue,
+  recentColorsFromStorage,
+  setMessage,
+  updateColorInStorage,
+} from "./utils";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const [showDownloadPaletteModal, setshowDownloadPaletteModal] = useState(false)
   const colors = ["red", "green", "blue"]; // colors array
-  const [showRecentBtn, setshowRecentBtn] = useState(false); // show recent button
-  const checkColorsInUrl = () => {
-    let url = window.location.href;
-    let color = url.split("?color=")[1];
-    if (color) {
-      let r = color.substring(0, 3);
-      let g = color.substring(3, 6);
-      let b = color.substring(6, 9);
-      let newurl = url.split("?")[0];
-      window.history.pushState({}, null, newurl);
-      return { red: r, green: g, blue: b };
-    } else {
-      return { red: 222, green: 215, blue: 34 };
-    }
-  };
-  const [colorObj, setColorObj] = useState(checkColorsInUrl); // color object with rgb values
+  const [showRecentBtn, setshowRecentBtn] = useState(false); // show add to recent colors button
+  const [isRGB, setisRGB] = useState(true); // is color rgb or hex to display
+  const [colorObj, setColorObj] = useState(checkPaletteColorsInUrl); // color object with rgb values
 
-  //   change color function
-  function ChangeColor(c, e) {
+  // changing color from slider
+  const ChangeColor = (c, e) => {
     setshowRecentBtn(true);
     setColorObj((previousState) => {
       return { ...previousState, [c]: e };
     });
-  }
-  //   change color function
-  const { red, green, blue } = colorObj; // destructing color object into three colors
-  const [rgbCode, setrgbCode] = useState(`rgb(${red},${green},${blue})`); // rgb string for copy and show
+  };
+
+  const { red, green, blue } = colorObj; // destructing color object into three colors to get single Color
+  const makeRGBSTR = useCallback(() => {
+    return `rgb(${red},${green},${blue})`;
+  }, [red, green, blue]); // creating rgb string
+
+  const [rgbCode, setrgbCode] = useState(makeRGBSTR); // rgb string for copy and show
+  const [hexCode, setHexcode] = useState(); // hex string for copy and show
+
+  // converting single color into hex
+  // one color is passed at a time
+  const convertsingleRGBToHex = (clr) => {
+    let hex = clr.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  };
+
+  // converting rgb to hex
   const rgb2hex = useCallback(() => {
     return (
       "#" +
@@ -45,117 +52,67 @@ const AppProvider = ({ children }) => {
       convertsingleRGBToHex(green) +
       convertsingleRGBToHex(blue)
     );
-  }, [red, green, blue]); // converting rgb to hex
-  const [hexCode, setHexcode] = useState(); // hex string for copy and show
-  const [isRGB, setisRGB] = useState(true); // is color rgb or hex
+  }, [red, green, blue]);
+
   useEffect(() => {
-    setHexcode(rgb2hex());
-    setrgbCode(`rgb(${red},${green},${blue})`);
-    if (isRGB) {
-      setColor4copy(rgbCode);
-    } else {
-      setColor4copy(hexCode);
-    }
-  }, [rgb2hex, blue, green, red, isRGB, rgbCode, hexCode]); // converting rgb to hex and adding to color4copy ON CHANGE OF COLORS
+    setHexcode(rgb2hex);
+    setrgbCode(makeRGBSTR);
+    setColor4copy(() => {
+      return isRGB ? rgbCode : hexCode;
+    });
+  }, [rgb2hex, blue, green, red, isRGB, rgbCode, hexCode, makeRGBSTR]); // converting rgb to hex and adding to color4copy ON CHANGE OF COLORS
 
-  const getRecentColorsFromLocal = () => {
-    let recent = localStorage.getItem("color");
-    if (recent) {
-      return JSON.parse(recent);
-    }
-    return [];
-  }
-  const [history, setHistory] = useState(getRecentColorsFromLocal()); // recent colors
-  const [color4copy, setColor4copy] = useState(""); // color for copy
-  // converting color
+  const [history, setHistory] = useState(recentColorsFromStorage); // recent colors
+  const [color4copy, setColor4copy] = useState(""); // color for copy on copy button click
 
-  // converting single color into hex
-  const convertsingleRGBToHex = (clr) => {
-    let hex = clr.toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
+  const udpateColorInHistory = (color) => {
+    let temp = [...history];
+    if (history.includes(color)) {
+      return;
+    }
+    // if history length is 10 then remove last color and add new color in recent colors
+    setHistory(() => {
+      if (history.length > 10) {
+        temp = [...history];
+        temp.pop();
+        updateColorInStorage([color, ...temp]);
+        return [color, ...temp];
+      }
+      updateColorInStorage([color, ...temp]);
+      return [color, ...temp];
+    });
   };
-  // converting single color into hex
-  // converting color
+
+  // if there'll be recent colors in localstorage then show recent section will be visible
+  const [showRecent, setshowrecent] = useState(() => {
+    return history.length > 0 ? true : false;
+  });
 
   // generating random color and adding in recent colors
-  const randomColorValue = () => {
-    return Math.floor(Math.random() * 256);
-  };
   const randomColor = () => {
     setshowrecent(true);
     let r = randomColorValue();
     let g = randomColorValue();
     let b = randomColorValue();
-    setColorObj({ red: r, green: g, blue: b });
-    let color = `rgb(${r},${g},${b})`;
-    // history.unshift(color); // adding in recent colors
-    let temp = [...history];
-    setHistory([color, ...temp]);
-    if (history.length > 10) {
-      //   history.pop(); // removing last color from recent colors if length is greater than 10
-      temp = [...history];
-      setHistory(temp.slice(0, 9));
-    }
-    localStorage.setItem("color", JSON.stringify(history.slice(0, 8))); // adding in localstorage
-  };
-  // generating random color and adding in recent colors
 
+    setColorObj({ red: r, green: g, blue: b });
+    udpateColorInHistory(`rgb(${r},${g},${b})`);
+  };
 
   // add color to recent
   const addColorToRecent = () => {
-    let color = `rgb(${red},${green},${blue})`;
-    let temp = [...history];
-    if(history.includes(color)){
-      return;
-    }
-    setHistory([color, ...temp]);
-    if (history.length > 10) {
-      temp = [...history];
-      setHistory(temp.slice(0, 9));
-    }
     setshowrecent(true);
-    setshowRecentBtn(false)
-    localStorage.setItem("color", JSON.stringify(history.slice(0, 8)));
-    setMessage(`${
-      isRGB ? `rgb(${red},${green},${blue})` : `${rgb2hex()}`
-    } added to recent`)
-  }
-  // add color to recent
-
-
-  // if there'll be recent colors in localstorage then show recent section will be visible
-  const [showRecent, setshowrecent] = useState(() => {
-    if (history.length === 0) {
-      return false;
-    }
-    return true;
-  });
-  // if there'll be recent colors in localstorage then show recent section will be visible
-  // get recent colors from localstorage
-  const getrecent = () => {
-    let recent = localStorage.getItem("color");
-    if (recent) {
-      return JSON.parse(recent);
-    }
-    return [];
+    udpateColorInHistory(makeRGBSTR());
+    setshowRecentBtn(false);
+    setMessage(`${isRGB ? makeRGBSTR() : `${rgb2hex()}`} added to recent`);
   };
-  // get recent colors from localstorage
-
   // clear revent history
   const clearRecent = () => {
     localStorage.removeItem("color");
     setHistory([]);
     setshowrecent(false);
   };
-  // clear revent history
 
-  const setMessage = (msg) => {
-    // message.open({ content: msg}, 2);
-    toast(msg, {
-      duration: 2000,
-      className: "custom_toast",
-    });
-  };
   return (
     <AppContext.Provider
       value={{
@@ -167,7 +124,6 @@ const AppProvider = ({ children }) => {
         ChangeColor,
         randomColor,
         clearRecent,
-        getrecent,
         convertsingleRGBToHex,
         rgbCode,
         setrgbCode,
@@ -178,9 +134,10 @@ const AppProvider = ({ children }) => {
         setshowrecent,
         history,
         setHistory,
-        setMessage,
         showRecentBtn,
-        addColorToRecent
+        addColorToRecent,
+        makeRGBSTR,
+        showDownloadPaletteModal, setshowDownloadPaletteModal
       }}
     >
       {children}

@@ -15,9 +15,9 @@
   display: none;
 }
 button {
-  outline: none !important;
+  @apply outline-none;
   &:not(.customBtn) {
-    border: none !important;
+    @apply border-none;
   }
 }
 h1,
@@ -31,24 +31,23 @@ h6 {
 }
 
 body {
-  margin: 0;
+  @apply m-0 text-white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
 }
 // antd override
 .ant-slider-rail {
-  background: #00000029 !important;
+  @apply  bg-[#00000029] #{!important};
 }
 .ant-slider {
-  margin: 5px 0;
+  @apply my-[5px] mx-0 #{!important};
 }
 .ant-slider-handle,
 .ant-slider-track {
-  transition: all 0.03s linear !important;
+  @apply transition-all duration-300 ease-linear #{!important};
 }
 .ant-message-notice-content {
-  border: 1px solid #202020 !important;
+  @apply border border-solid border-[#202020] #{!important};
 }
 $rgb: "red", "green", "blue";
 @each $color in $rgb {
@@ -75,87 +74,54 @@ $rgb: "red", "green", "blue";
       width: 100%;
       height: 100%;
       border: 1px solid #d6d6d6;
-      box-shadow: 0 4px 10px rgba(80, 80, 80, 0.2);
+      box-shadow: 0 4px 10px rgba(213, 213, 213, 0.1);
       transition: all 0.3s ease;
     }
     &:hover {
       &::before {
         border-color: #202020;
-        box-shadow: 0 3px 10px rgba(80, 80, 80, 0.5);
+        box-shadow: 0 3px 10px rgba(80, 80, 80, 0.2);
       }
     }
   }
 }
 // recent colors
 .customBtn {
-  background: #202020;
-  color: white;
-  padding: 0 12px;
-  margin: 2px;
-  border-radius: 4px;
-  outline: none;
-  border: 1px solid #202020;
-  line-height: 28px;
-  user-select: none;
-  font-size: 13px !important;
-  transition: all 0.3s ease;
-  text-transform: capitalize;
+  @apply bg-black text-white p-[0_12px] rounded outline-none border border-black leading-7 select-none text-[13px] transition-all duration-300 ease-in-out capitalize;
   &._icon {
-    padding: 0;
-    width: 28px;
-    height: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @apply p-0 w-[28px] h-[28px] inline-flex items-center justify-center;
   }
   &:hover {
-    background: none;
-    color: #202020;
-    box-shadow: 0 4px 4px rgba(80, 80, 80, 0.2);
+    @apply bg-opacity-0 text-black shadow-[0px_4px_10px_rgba(80,80,80,0.2)] #{!important};
   }
   &:active {
-    transform: scale(0.95);
+    @apply scale-95;
   }
   &.smallBtn {
-    padding: 0 8px;
-    font-size: 12px !important;
-    line-height: 20px;
-  }
-}
-.picker-body {
-  .customBtn {
-    margin: 0;
+    @apply p-[0_8px] text-[12px] leading-5;
   }
 }
 
 @media screen and (max-width: 700px) {
   h4.heading {
-    font-size: 18px;
+    @apply text-[18px];
   }
   button.seeAll {
-    font-size: 12px;
+    @apply text-xl;
   }
 }
 
 // fullscreen
 .fullscreen-enabled:has(.paletteDiv-main) {
   .paletteDiv-main {
-    min-height: 100vh;
-    padding: 10px !important;
+    @apply min-h-screen p-[10px]  #{!important};
   }
   .paletteDiv {
-    height: unset;
-    width: unset;
-    aspect-ratio: 1/1;
+    @apply h-[unset] w-[unset] aspect-square;
   }
 }
 .full-screenbutton {
-  width: 30px;
-  height: 30px;
-  display: grid;
-  place-items: center;
-  background: none;
-  font-size: 20px;
+  @apply w-[30px] h-[30px] grid place-items-center bg-opacity-0 text-[20px];
 }
 // fullscreen
 
@@ -165,7 +131,7 @@ $rgb: "red", "green", "blue";
   box-shadow: 0 4px 10px rgba(80, 80, 80, 0.2),
     inset 0 4px 10px rgba(80, 80, 80, 0.2) !important;
   > div {
-    @apply m-0 font-semibold bg-none ;
+    @apply m-0 font-semibold bg-opacity-0 ;
   }
 }
 // toast

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Tooltip } from "antd";
 import { useGlobalContext } from "../context";
+import { setMessage } from "../utils";
 
 function Recentcolor() {
   const {
     clearRecent,
     history,
     setColorObj,
-    setMessage,
     convertsingleRGBToHex,
     isRGB,
     showRecent
@@ -50,14 +50,14 @@ function Recentcolor() {
   }, [showAll, history]);
   return (
     <div
-      className={`overflow-hidden transition-all duration-300 ease-linear pt-2 ${
-        !showRecent ? "!min-h-0 !h-0 !p-0 m-0" : `min-h-[80px] ${showAll ? "h-auto" : "h-[110px]"}`
+      className={`transition-all duration-300 ease-linear pt-2 ${
+        !showRecent ? "!min-h-0 !h-0 !p-0 m-0 overflow-hidden" : `min-h-[80px] ${showAll ? "h-auto" : "h-[110px]"}`
       }`}
     >
       <div className="recents">
         <div className="flex items-center justify-between flex-wrap mb-2">
           <h4 className="text-2xl m-0">recent</h4>
-          <div className={`flex items-center`}>
+          <div className="flex items-center gap-1">
             <button
               className={`clearRecent customBtn smallBtn ${
                 history.slice(0, 8).length === 0 ? "hidden" : null
