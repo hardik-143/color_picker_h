@@ -10,7 +10,6 @@ function PaletteColor({ color, index, squared, showChild }) {
   const [copied, setCopied] = useState(false);
   let hexColor = `#${hex}`;
   let clr;
-  console.log(color);
   if (isRGB) {
     clr = rgbColor;
   } else {
