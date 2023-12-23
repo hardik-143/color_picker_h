@@ -25,6 +25,7 @@ function PaletteColor({ color, index, squared, showChild }) {
       ChangeColor('green',rgb[1]);
       ChangeColor('blue',rgb[2]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   const paletteDiv = () =>{
     return (
