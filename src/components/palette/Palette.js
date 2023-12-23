@@ -7,16 +7,14 @@ import * as htmlToImage from "html-to-image";
 import { IoMdDownload } from "react-icons/io";
 
 import { Tooltip } from "antd";
-import {  setMessage } from "../../utils";
-import { makeReverseSTR } from "../../utils";
+import { setMessage } from "../../utils";
 import { useNavigate } from "react-router-dom";
 // import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
   const navigate = useNavigate();
   const handle = useFullScreenHandle();
   const [pltColors, setPltColors] = useState([]);
-  const [hexPaletteSTR, setHexPaletteSTR] = useState([]);
-  const { rgbCode } = useGlobalContext();
+  const { rgbCode,hexCode } = useGlobalContext();
 
   // const copyPaletteLink = () => {
   //   let { red, green, blue } = colorObj;
@@ -38,13 +36,7 @@ function Palette() {
       // removing white & black color from palette with slicing first & last element
       clrfiltered = color.filter((color) => color.type !== "base").slice(1, 9);
     }
-
     setPltColors(clrfiltered);
-    // setHexPalette
-    let hexPalette = clrfiltered.map((color) => {
-      return color.hex;
-    });
-    setHexPaletteSTR(makeReverseSTR(hexPalette.join("")));
   };
   useEffect(() => {
     updatePalette();
@@ -113,15 +105,18 @@ function Palette() {
             </div>
           </div>
           <div
-            className="colorPalette grid grid-cols-4 md:grid-cols-8"
-            id="colorPalette"
             onClick={(e) => {
-              navigate(`/palette/${hexPaletteSTR}`)
+              navigate(`/palette/${hexCode.slice(1)}`);
             }}
           >
-            {pltColors.map((color, index) => {
-              return <PaletteColor color={color} index={index} key={index} />;
-            })}
+            <div
+              className="colorPalette grid grid-cols-4 md:grid-cols-8"
+              id="colorPalette"
+            >
+              {pltColors.map((color, index) => {
+                return <PaletteColor color={color} index={index} key={index} />;
+              })}
+            </div>
           </div>
         </div>
       </FullScreen>
