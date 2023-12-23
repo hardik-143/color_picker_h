@@ -45,7 +45,7 @@ body {
 }
 .ant-slider-handle,
 .ant-slider-track {
-  @apply transition-all duration-300 ease-linear #{!important};
+  @apply transition-all duration-300 ease-linear;
 }
 .ant-message-notice-content {
   border:1px solid  #202020 !important;
@@ -93,7 +93,7 @@ $rgb: "red", "green", "blue";
     @apply p-0 w-[28px] h-[28px] inline-flex items-center justify-center;
   }
   &:hover {
-    @apply bg-opacity-0 shadow-[0px_4px_10px_rgba(80,80,80,0.2)] text-black #{!important};
+    @apply bg-opacity-0 shadow-[0px_4px_10px_rgba(80,80,80,0.2)] text-black;
   }
   &:active {
     @apply scale-95;
@@ -115,7 +115,7 @@ $rgb: "red", "green", "blue";
 // fullscreen
 .fullscreen-enabled:has(.paletteDiv-main) {
   .paletteDiv-main {
-    @apply p-[10px] min-h-screen #{!important};
+    @apply p-[10px] min-h-screen;
   }
   .paletteDiv {
     @apply h-[unset] w-[unset] aspect-square;
