@@ -1,7 +1,6 @@
-import { Tooltip } from "antd";
+
 import React from "react";
-import { useGlobalContext } from "../context";
-import { setMessage } from "../utils";
+import { useGlobalContext } from "../../context";
 
 function PaletteColor({ color, index }) {
   const { isRGB } = useGlobalContext();
@@ -16,18 +15,18 @@ function PaletteColor({ color, index }) {
   }
   return (
     <>
-      <Tooltip title={clr}>
+      {/* <Tooltip title={clr}> */}
         <div
           className="paletteDiv h-[50px] flex items-center justify-center"
           id={`pallete-${index}`}
           style={{ background: `${clr}` }}
           // key={index}
-          onClick={() => {
-            navigator.clipboard.writeText(clr);
-            setMessage(`color ${clr} copied`)
-          }}
+          // onClick={() => {
+          //   navigator.clipboard.writeText(clr);
+          //   setMessage(`color ${clr} copied`)
+          // }}
         ></div>
-      </Tooltip>
+      {/* </Tooltip> */}
     </>
   );
 }

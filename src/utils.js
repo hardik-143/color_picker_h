@@ -4,12 +4,12 @@ export const updateColorInStorage = (color) => {
   localStorage.setItem("color", JSON.stringify(color));
 };
 export const recentColorsFromStorage = () => {
-    let recent = localStorage.getItem("color");
-    if (recent) {
-      return JSON.parse(recent);
-    }
-    return [];
+  let recent = localStorage.getItem("color");
+  if (recent) {
+    return JSON.parse(recent);
   }
+  return [];
+};
 
 export const setMessage = (msg) => {
   // message.open({ content: msg}, 2);
@@ -20,14 +20,14 @@ export const setMessage = (msg) => {
 };
 
 export const get3digit = (num) => {
-    if (num < 10) {
-        return `00${num}`;
-    } else if (num < 100) {
-        return `0${num}`;
-    } else {
-        return `${num}`;
-    }
-}
+  if (num < 10) {
+    return `00${num}`;
+  } else if (num < 100) {
+    return `0${num}`;
+  } else {
+    return `${num}`;
+  }
+};
 
 export const checkPaletteColorsInUrl = () => {
   let url = window.location.href;
@@ -45,5 +45,10 @@ export const checkPaletteColorsInUrl = () => {
 };
 
 export const randomColorValue = () => {
-    return Math.floor(Math.random() * 256);
-    };
+  return Math.floor(Math.random() * 256);
+};
+
+export const makeReverseSTR = (str) => {
+  let reverse = str.split("").reverse().join("");
+  return reverse;
+};
