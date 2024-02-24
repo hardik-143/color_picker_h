@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Index from "./pages/Index";
 import Layout from "./common/Layout";
-import Palette from "./pages/Palette";
+// import Palette from "./pages/Palette";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
-            <Route path="/palette/:paletteSTR" element={<Palette />} />
+            {/* <Route path="/palette/:paletteSTR" element={<Palette />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

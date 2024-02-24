@@ -8,13 +8,11 @@ import { IoMdDownload } from "react-icons/io";
 
 import { Tooltip } from "antd";
 import { setMessage } from "../../utils";
-import { useNavigate } from "react-router-dom";
-// import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
+import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 function Palette() {
-  const navigate = useNavigate();
   const handle = useFullScreenHandle();
   const [pltColors, setPltColors] = useState([]);
-  const { rgbCode,hexCode } = useGlobalContext();
+  const { rgbCode } = useGlobalContext();
 
   // const copyPaletteLink = () => {
   //   let { red, green, blue } = colorObj;
@@ -42,14 +40,14 @@ function Palette() {
     updatePalette();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rgbCode, handle]);
-  // const toggleFullScreen = () => {
-  //   if (handle.active) {
-  //     handle.exit();
-  //   } else {
-  //     handle.enter();
-  //   }
-  //   updatePalette();
-  // };
+  const toggleFullScreen = () => {
+    if (handle.active) {
+      handle.exit();
+    } else {
+      handle.enter();
+    }
+    updatePalette();
+  };
 
   const downloadPalette = () => {
     var node = document.getElementById("colorPalette");
@@ -73,20 +71,23 @@ function Palette() {
     <>
       <FullScreen handle={handle}>
         <div className="paletteDiv-main py-3">
-          <div className="flex justify-between items-center h-[30px] mb-2">
-            <h4 className="text-2xl">Palette</h4>
-            {/* <button
-              className="full-screenbutton"
-              onClick={() => toggleFullScreen()}
-            >
-              {handle.active ? (
-                <AiOutlineFullscreenExit />
-              ) : (
-                <AiOutlineFullscreen />
-              )}
-            </button> */}
-            <div className="flex items-center gap-1">
-              {/* <Tooltip title="copy link">
+          {!handle.active && (
+            <div className="flex justify-between items-center h-[30px] mb-2">
+              <h4 className="text-2xl">Palette</h4>
+              <div className="flex items-center gap-1">
+                <Tooltip title="Full Screen">
+                  <button
+                    className={`customBtn _icon`}
+                    onClick={() => toggleFullScreen()}
+                  >
+                    {handle.active ? (
+                      <AiOutlineFullscreenExit />
+                    ) : (
+                      <AiOutlineFullscreen />
+                    )}
+                  </button>
+                </Tooltip>
+                {/* <Tooltip title="copy link">
                 <button
                   className="downloadBtn customBtn _icon"
                   onClick={() => copyPaletteLink()}
@@ -94,21 +95,18 @@ function Palette() {
                   <IoIosLink />
                 </button>
               </Tooltip> */}
-              <Tooltip title="download palette">
-                <button
-                  className="downloadBtn customBtn _icon"
-                  onClick={() => downloadPalette()}
-                >
-                  <IoMdDownload />
-                </button>
-              </Tooltip>
+                <Tooltip title="Download Palette">
+                  <button
+                    className={`customBtn _icon`}
+                    onClick={() => downloadPalette()}
+                  >
+                    <IoMdDownload />
+                  </button>
+                </Tooltip>
+              </div>
             </div>
-          </div>
-          <div
-            onClick={(e) => {
-              navigate(`/palette/${hexCode.slice(1)}`);
-            }}
-          >
+          )}
+          <div>
             <div
               className="colorPalette grid grid-cols-4 md:grid-cols-8"
               id="colorPalette"

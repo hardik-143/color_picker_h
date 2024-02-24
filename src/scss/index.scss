@@ -88,15 +88,12 @@ $rgb: "red", "green", "blue";
 }
 // recent colors
 .customBtn {
-  @apply bg-black text-white p-[0_12px] rounded outline-none border border-black leading-7 select-none text-[13px] transition-all duration-300 ease-in-out capitalize;
+  @apply bg-black text-white p-[0_12px] active:scale-95 hover:text-black hover:bg-opacity-0 shadow-[0px_4px_10px_rgba(80,80,80,0.2)] rounded outline-none border border-black leading-7 select-none text-[13px] transition-all duration-300 ease-in-out capitalize;
+  &._fullScreened {
+    @apply bg-white text-black border-white hover:bg-opacity-0 hover:text-white;
+  }
   &._icon {
     @apply p-0 w-[28px] h-[28px] inline-flex items-center justify-center;
-  }
-  &:hover {
-    @apply bg-opacity-0 shadow-[0px_4px_10px_rgba(80,80,80,0.2)] text-black;
-  }
-  &:active {
-    @apply scale-95;
   }
   &.smallBtn {
     @apply p-[0_8px] text-[12px] leading-5;
